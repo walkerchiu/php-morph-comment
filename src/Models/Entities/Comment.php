@@ -2,10 +2,10 @@
 
 namespace WalkerChiu\MorphComment\Models\Entities;
 
-use WalkerChiu\Core\Models\Entities\Entity;
 use WalkerChiu\Core\Models\Entities\LangTrait;
+use WalkerChiu\Core\Models\Entities\UuidEntity;
 
-class Comment extends Entity
+class Comment extends UuidEntity
 {
     use LangTrait;
 
@@ -87,7 +87,7 @@ class Comment extends Entity
     /**
      * Get all of the comments for the comment.
      *
-     * @param Int $user_id
+     * @param String $user_id
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function comments($user_id = null) {

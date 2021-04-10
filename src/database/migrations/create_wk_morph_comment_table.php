@@ -9,9 +9,9 @@ class CreateWkMorphCommentTable extends Migration
     public function up()
     {
         Schema::create(config('wk-core.table.morph-comment.comments'), function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->morphs('morph');
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->uuid('id');
+            $table->uuidMorphs('morph');
+            $table->uuid('user_id')->nullable();
             $table->float('score')->nullable();
             $table->json('options')->nullable();
             $table->json('addresses')->nullable();
@@ -27,6 +27,7 @@ class CreateWkMorphCommentTable extends Migration
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
 
+            $table->primary('id');
             $table->index('score');
             $table->index('is_private');
             $table->index('is_highlighted');
@@ -34,9 +35,9 @@ class CreateWkMorphCommentTable extends Migration
         });
         if (!config('wk-morph-comment.onoff.core-lang_core')) {
             Schema::create(config('wk-core.table.morph-comment.comments_lang'), function (Blueprint $table) {
-                $table->bigIncrements('id');
-                $table->morphs('morph');
-                $table->unsignedBigInteger('user_id')->nullable();
+                $table->uuid('id');
+                $table->uuidMorphs('morph');
+                $table->uuid('user_id')->nullable();
                 $table->string('code');
                 $table->string('key');
                 $table->longText('value')->nullable();
@@ -49,6 +50,8 @@ class CreateWkMorphCommentTable extends Migration
                     ->on(config('wk-core.table.user'))
                     ->onDelete('set null')
                     ->onUpdate('cascade');
+
+                $table->primary('id');
             });
         }
     }

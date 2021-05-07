@@ -79,7 +79,7 @@ class CommentRepository extends Repository
                                             });
                                         });
                             })
-                            ->orderBy('order', 'ASC')
+                            ->orderBy('updated_at', 'DESC')
                             ->get()
                             ->when(is_integer($page) && is_integer($nums), function ($query) use ($page, $nums) {
                                 return $query->forPage($page, $nums);

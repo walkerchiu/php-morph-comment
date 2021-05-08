@@ -18,6 +18,7 @@ return [
     'is_private'     => '是否私密',
     'is_highlighted' => '是否置頂',
     'is_enabled'     => '是否公開',
+    'edit_at'        => '編輯於',
 
     'phone' => '電話',
     'email' => '電子信箱',

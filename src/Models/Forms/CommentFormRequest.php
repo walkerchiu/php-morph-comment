@@ -35,6 +35,7 @@ class CommentFormRequest extends FormRequest
             'is_private'     => trans('php-morph-comment::system.is_private'),
             'is_highlighted' => trans('php-morph-comment::system.is_highlighted'),
             'is_enabled'     => trans('php-morph-comment::system.is_enabled'),
+            'edit_at'        => trans('php-morph-comment::system.edit_at'),
 
             'subject'        => trans('php-morph-comment::system.subject'),
             'content'        => trans('php-morph-comment::system.content'),
@@ -62,6 +63,7 @@ class CommentFormRequest extends FormRequest
             'is_private'     => 'boolean',
             'is_highlighted' => 'boolean',
             'is_enabled'     => 'boolean',
+            'edit_at'        => 'required|date|date_format:Y-m-d H:i:s',
 
             'subject'        => 'nullable|string|max:255',
             'content'        => 'required|string',
@@ -108,6 +110,9 @@ class CommentFormRequest extends FormRequest
             'is_private.boolean'       => trans('php-core::validation.boolean'),
             'is_highlighted.boolean'   => trans('php-core::validation.boolean'),
             'is_enabled.boolean'       => trans('php-core::validation.boolean'),
+            'edit_at.required'         => trans('php-core::validation.required'),
+            'edit_at.date'             => trans('php-core::validation.date'),
+            'edit_at.date_format'      => trans('php-core::validation.date_format'),
 
             'subject.string'           => trans('php-core::validation.string'),
             'subject.max'              => trans('php-core::validation.max'),

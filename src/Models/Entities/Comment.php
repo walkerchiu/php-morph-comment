@@ -21,13 +21,15 @@ class Comment extends Entity
             'score',
             'options', 'addresses',
             'is_private', 'is_highlighted',
-            'is_enabled'
+            'is_enabled',
+            'edit_at'
         ]);
 
         $this->casts = array_merge($this->casts, [
             'options'        => 'json',
             'is_private'     => 'boolean',
-            'is_highlighted' => 'boolean'
+            'is_highlighted' => 'boolean',
+            'edit_at'        => 'datetime'
         ]);
 
         parent::__construct($attributes);

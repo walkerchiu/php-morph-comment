@@ -18,6 +18,7 @@ class CreateWkMorphCommentTable extends Migration
             $table->boolean('is_private')->default(0);
             $table->boolean('is_highlighted')->default(0);
             $table->boolean('is_enabled')->default(0);
+            $table->timestamp('edit_at')->nullable();
 
             $table->timestampsTz();
             $table->softDeletes();

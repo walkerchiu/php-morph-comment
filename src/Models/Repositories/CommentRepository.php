@@ -64,6 +64,9 @@ class CommentRepository extends Repository
                                         ->when(isset($data['is_highlighted']), function ($query) use ($data) {
                                             return $query->where('is_highlighted', $data['is_highlighted']);
                                         })
+                                        ->unless(empty($data['edit_at']), function ($query) use ($data) {
+                                            return $query->where('edit_at', $data['edit_at']);
+                                        })
                                         ->unless(empty($data['subject']), function ($query) use ($data) {
                                             return $query->whereHas('langs', function($query) use ($data) {
                                                 $query->ofCurrent()
@@ -79,7 +82,7 @@ class CommentRepository extends Repository
                                             });
                                         });
                             })
-                            ->orderBy('updated_at', 'DESC')
+                            ->orderBy('edit_at', 'DESC')
                             ->get()
                             ->when(is_integer($page) && is_integer($nums), function ($query) use ($page, $nums) {
                                 return $query->forPage($page, $nums);

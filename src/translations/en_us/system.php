@@ -18,6 +18,7 @@ return [
     'is_private'     => 'Is Private',
     'is_highlighted' => 'Is Highlighted',
     'is_enabled'     => 'Is Enabled',
+    'edit_at'        => 'Edit At',
 
     'phone' => 'Phone',
     'email' => 'Email',

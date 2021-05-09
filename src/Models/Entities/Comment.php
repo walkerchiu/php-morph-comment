@@ -98,4 +98,16 @@ class Comment extends Entity
                                 return $query->where('user_id', $user_id);
                             });
     }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function isOwnedBy($user)
+    {
+        if (empty($user))
+            return false;
+
+        return $this->user_id == $user->id;
+    }
 }

@@ -27,9 +27,10 @@ class CommentRepository extends Repository
      * @param Int     $page
      * @param Int     $nums per page
      * @param Boolean $is_enabled
-     * @return Array
+     * @param Boolean $toArray
+     * @return Array|Collection
      */
-    public function list(String $code, Array $data, $page = null, $nums = null, $is_enabled = null)
+    public function list(String $code, Array $data, $page = null, $nums = null, $is_enabled = null, $toArray = true)
     {
         $this->assertForPagination($page, $nums);
 
@@ -87,36 +88,41 @@ class CommentRepository extends Repository
                             ->when(is_integer($page) && is_integer($nums), function ($query) use ($page, $nums) {
                                 return $query->forPage($page, $nums);
                             });
-        $list = [];
-        foreach ($records as $record) {
-            if (config('wk-morph-comment.onoff.morph-address')) {
-                $address = ($record->user_id) ? $record->user->addresses('contact')->first()
-                                              : $record->addresses('contact')->first();
 
-                $data = $record->toArray();
-                array_push($list,
-                    array_merge($data, [
-                        'subject' => $record->findLangByKey('subject'),
-                        'content' => $record->findLangByKey('content'),
-                        'address' => [
-                            'phone' => $address->phone,
-                            'email' => $address->email,
-                            'name'  => $address->findLang($code, 'name')
-                        ]
-                    ])
-                );
-            } else {
-                $data = $record->toArray();
-                array_push($list,
-                    array_merge($data, [
-                        'subject' => $record->findLangByKey('subject'),
-                        'content' => $record->findLangByKey('content')
-                    ])
-                );
+        if ($toArray) {
+            $list = [];
+            foreach ($records as $record) {
+                if (config('wk-morph-comment.onoff.morph-address')) {
+                    $address = ($record->user_id) ? $record->user->addresses('contact')->first()
+                                                : $record->addresses('contact')->first();
+
+                    $data = $record->toArray();
+                    array_push($list,
+                        array_merge($data, [
+                            'subject' => $record->findLangByKey('subject'),
+                            'content' => $record->findLangByKey('content'),
+                            'address' => [
+                                'phone' => $address->phone,
+                                'email' => $address->email,
+                                'name'  => $address->findLang($code, 'name')
+                            ]
+                        ])
+                    );
+                } else {
+                    $data = $record->toArray();
+                    array_push($list,
+                        array_merge($data, [
+                            'subject' => $record->findLangByKey('subject'),
+                            'content' => $record->findLangByKey('content')
+                        ])
+                    );
+                }
             }
-        }
 
-        return $list;
+            return $list;
+        } else {
+            return $records;
+        }
     }
 
     /**

@@ -154,6 +154,7 @@ class CommentRepository extends Repository
                   'is_enabled'     => $entity->is_enabled,
                   'subject'        => $entity->findLang($code, 'subject'),
                   'content'        => $entity->findLang($code, 'content'),
+                  'edit_at'        => $entity->edit_at,
                   'created_at'     => $entity->created_at,
                   'updated_at'     => $entity->updated_at
             ];
@@ -180,6 +181,7 @@ class CommentRepository extends Repository
                     'is_enabled'     => $entity->is_enabled,
                     'subject'        => $entity->findLang($language, 'subject'),
                     'content'        => $entity->findLang($language, 'content'),
+                    'edit_at'        => $entity->edit_at,
                     'created_at'     => $entity->created_at,
                     'updated_at'     => $entity->updated_at
                 ];

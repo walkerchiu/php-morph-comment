@@ -83,7 +83,7 @@ class CommentRepository extends Repository
                                             });
                                         });
                             })
-                            ->orderBy('edit_at', 'DESC')
+                            ->orderBy('created_at', 'ASC')
                             ->get()
                             ->when(is_integer($page) && is_integer($nums), function ($query) use ($page, $nums) {
                                 return $query->forPage($page, $nums);
@@ -93,8 +93,9 @@ class CommentRepository extends Repository
             $list = [];
             foreach ($records as $record) {
                 if (config('wk-morph-comment.onoff.morph-address')) {
-                    $address = ($record->user_id) ? $record->user->addresses('contact')->first()
-                                                : $record->addresses('contact')->first();
+                    $address = ($record->user_id)
+                        ? $record->user->addresses('contact')->first()
+                        : $record->addresses('contact')->first();
 
                     $data = $record->toArray();
                     array_push($list,

@@ -102,6 +102,10 @@ class CommentObserver
      */
     public function deleted($entity)
     {
+        if (!config('wk-morph-comment.soft_delete')) {
+            $entity->forceDelete();
+        }
+
         if ($entity->isForceDeleting()) {
             $entity->langs->withTrashed()->forceDelete();
             foreach ($entity->comments as $comment) {
